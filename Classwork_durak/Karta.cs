@@ -6,10 +6,22 @@ using System.Threading.Tasks;
 
 namespace Classwork_durak
 {
-    abstract class Karta
+    class Karta
     {
-      
-      
+        
+        public int Znach { get; set; }
+        public Mast Mast;
+        public Karta(int znach, Mast mast)
+        {
+            Znach = znach;
+            Mast = mast;
+        }
+
+        public override string ToString()
+        {
+            return ($"{Znach}{Mast.ToString()}\n{Mast.ToString()}{Mast.ToString()}\n{Mast.ToString()}{Znach}");
+        }
+
 
     }
 }
