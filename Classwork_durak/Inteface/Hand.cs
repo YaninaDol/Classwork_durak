@@ -9,8 +9,9 @@ namespace Classwork_durak
     interface Hand
     {
 
+        public void Take(Karta karta,Mast mast);
         public void Take(Karta karta);
-        public void Give();
+        public Karta Give();
 
 
     }

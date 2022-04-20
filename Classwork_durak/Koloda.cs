@@ -71,17 +71,22 @@ namespace Classwork_durak
         public void Shake()
         {
             Random random = new Random();
-            for(int i=0;i<36;i++)
+            do
             {
                 int ch = random.Next(0, 36);
-                if(!koloda.Contains(mas[ch]))
+                if (!koloda.Contains(mas[ch]))
                 {
-                    this.Addcard(mas[ch]); 
+                    this.Addcard(mas[ch]);
                 }
             }
+            while (koloda.Count != 36);
 
         }
-        public void Remove() => koloda.Pop();
+        public int size()
+        {
+            return this.koloda.Count;
+         }
+        public Karta Remove() => koloda.Pop();
         public void Show()
         {
             foreach(Karta i in koloda)
