@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 namespace Classwork_durak
 {
     class Program
@@ -10,103 +11,75 @@ namespace Classwork_durak
         static void Main(string[] args)
         {
 
-            //Koloda koloda = new Koloda();      
-            //koloda.Shake();
-            //koloda.Show();
-
-            Player player1 = new Player("Oleg");
-            Console.WriteLine("Player1 : " + player1.Name);
-            Player player2 = new Player("Nadya");
-
-            Play_Table table = new Play_Table(player1, player2);
-            table.Shake();
-           // Console.WriteLine(table.karty.size());
-
-            table.Razdacha_kart();
-            // player1.Show();
-
-            //  Console.WriteLine("Player2 : " + player2.Name);
-            //  player2.Show();
 
            
-           
+           Console.WriteLine(" Введите имя первого игрока : ");
+            string Name1 = System.Console.ReadLine();
+            Player player1 = new Player(Name1);
 
-            List<Karta> otboy = new List<Karta>();
+            Console.WriteLine(" Введите имя второго игрока : ");
+            string Name2 = System.Console.ReadLine();
+            Console.Clear();
 
-            int f = 1;
-                while (f == 1)
-            {
-                
-                Karta pl1 = table.igroki[0].Give();
-                Karta pl2 = new Karta();
-                Console.WriteLine(" 1 - Ход\n 0 - Забрать");
-
-                int ch = int.Parse(System.Console.ReadLine());
-                f = ch;
-                if (f == 1)
-                {
-                    pl2 = table.igroki[1].Give();
-                    otboy.Add(pl1);
-                    otboy.Add(pl2);
-                    if (table.Hod(pl1, pl2, 0, 1) == false)
-                    {
-                       
-                        Console.WriteLine( " Забираете?\n 1 - Да 0 - Нет ");
-                        int v = int.Parse(System.Console.ReadLine());
-                        if (v==1)
-                        {
-                           
-                            table.igroki[1].my_karts.AddRange(otboy);
-                            f = 0;
-                            Console.WriteLine("Игрок:" + table.igroki[1].Name + " Забрал карты! ");
-                            break;
-                        }
-                        else
-                        {
-                            table.igroki[1].Take(pl2);
-                            break;
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine( " Бито! ");
-                    }
-                }
-                else
-                {
-                    table.igroki[1].my_karts.AddRange(otboy);
-                    table.igroki[1].Take(pl1);
-                    Console.WriteLine("Игрок:" + table.igroki[1].Name+" Забрал карты! ");
-                    f = 0;
-                   
-                    break;
-                }
-
-             
-                f = 1;
-            }
-            Console.WriteLine(" Igrok 1 -------------");
-            table.igroki[0].Show();
-
-            Console.WriteLine(" Igrok 2 -------------");
-            table.igroki[1].Show();
-
-            Console.WriteLine("\n\n  Раздача карт  ");
-           int k= table.igroki[0].Sum();
-            table.Vzat_karty(0, k);
-
-            k = 0;
-            k = table.igroki[1].Sum();
           
-            table.Vzat_karty(1, k);
 
+            Player player2 = new Player(Name2);
 
-            Console.WriteLine(" Igrok 1 -------------");
-            table.igroki[0].Show();
+            Play play = new Play(player1, player2);
+            Console.WriteLine(" Нажмите любую клавишу для Старта ");
+            Console.ReadLine();
+            Console.Clear();
 
-            Console.WriteLine(" Igrok 2 -------------");
-            table.igroki[1].Show();
+            play.Shake();
+            Console.WriteLine(" Козырь игры : " + play.table.kozyr.M.ToString());
 
+            play.Razdacha_kart();
+            Console.WriteLine( " Карты игрока "+ play.table.igroki[0].Name);
+
+            play.Show(0);
+            Console.ReadLine();
+                Console.Clear();
+            Console.WriteLine(" Карты игрока " + play.table.igroki[1].Name);
+            play.Show(1);
+            Console.ReadLine();
+            Console.Clear();
+           
+            int n1 = 0;
+            int n2 = 1;
+            bool f = true;
+            while (play.table.igroki[n1].my_karts.Count != 0 && play.table.igroki[n2].my_karts.Count != 0)
+            {
+
+              
+                f = true;
+                while (f==true)
+                {
+                    Console.WriteLine(" Ходит игрок " + play.table.igroki[n1].Name);
+                    f=play.Start(n1, n2) ;
+                }
+               
+                int t = n1;
+                n1= n2;
+                n2 = t;
+                play.Full_Kart();
+               
+            }
+
+            if(play.table.igroki[n1].my_karts.Count  > play.table.igroki[n2].my_karts.Count )
+            {
+                Console.WriteLine( "Победитель : " + play.table.igroki[n1].Name);
+            }
+            else if (play.table.igroki[n1].my_karts.Count < play.table.igroki[n2].my_karts.Count)
+            {
+                Console.WriteLine("Победитель : " + play.table.igroki[n2].Name);
+            }
+            else
+            {
+                Console.WriteLine(" Победила дружба! ");
+            }
+
+           
+            Console.WriteLine(" Игра окончена! ");
         }
     }
 }

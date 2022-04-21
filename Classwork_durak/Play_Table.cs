@@ -29,7 +29,7 @@ namespace Classwork_durak
         {
             karty.Shake();
             kozyr= this.Kozyr();
-            Console.WriteLine( " Козырь игры : " + kozyr.M.ToString() ); 
+            
         }
         public Player this[int ind]
         {
@@ -51,7 +51,10 @@ namespace Classwork_durak
 
             for (int i = 0; i < kol; i++)
             {
-                igroki[id_igrok].Take(karty.Remove(), kozyr);
+                if (karty.koloda.Count != 0)
+                {
+                    igroki[id_igrok].Take(karty.Remove(), kozyr);
+                }
                
             }
 
