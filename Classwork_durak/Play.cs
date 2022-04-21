@@ -37,6 +37,7 @@ namespace Classwork_durak
                 Console.Clear();
            
                 Console.WriteLine(" Козырь игры : " + table.kozyr.M.ToString());
+                Console.WriteLine(" Ходит игрок " + table.igroki[player1].Name);
 
                 Karta pl1 = table.igroki[player1].Give();
                 Console.Clear();

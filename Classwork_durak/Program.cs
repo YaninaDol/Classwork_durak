@@ -54,7 +54,7 @@ namespace Classwork_durak
                 f = true;
                 while (f==true)
                 {
-                    Console.WriteLine(" Ходит игрок " + play.table.igroki[n1].Name);
+                   
                     f=play.Start(n1, n2) ;
                 }
                
@@ -65,11 +65,11 @@ namespace Classwork_durak
                
             }
 
-            if(play.table.igroki[n1].my_karts.Count  > play.table.igroki[n2].my_karts.Count )
+            if(play.table.igroki[n1].my_karts.Count  < play.table.igroki[n2].my_karts.Count )
             {
                 Console.WriteLine( "Победитель : " + play.table.igroki[n1].Name);
             }
-            else if (play.table.igroki[n1].my_karts.Count < play.table.igroki[n2].my_karts.Count)
+            else if (play.table.igroki[n1].my_karts.Count > play.table.igroki[n2].my_karts.Count)
             {
                 Console.WriteLine("Победитель : " + play.table.igroki[n2].Name);
             }
